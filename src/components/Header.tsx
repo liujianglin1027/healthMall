@@ -1,71 +1,61 @@
-import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import { Search, ShoppingCart, ChevronLeft, MoreHorizontal } from 'lucide-react'
 
 const Header = () => {
-  const navigate = useNavigate()
-  const [cartCount, setCartCount] = useState(0)
   const [searchQuery, setSearchQuery] = useState('')
+  const [cartCount] = useState(2)
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
-    // 这里可以实现搜索逻辑
     console.log('搜索:', searchQuery)
   }
 
   return (
-    <header className="bg-white shadow-md fixed top-0 left-0 right-0 z-50">
-      <div className="container mx-auto px-4 py-3">
-        {/* 搜索框 */}
-        <div className="mb-4">
-          <form onSubmit={handleSearch} className="relative">
-            <input
-              type="text"
-              placeholder="搜索健康产品"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-4 py-2 rounded-full bg-light border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary"
-            />
-            <button 
-              type="submit"
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-primary"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </button>
-          </form>
-        </div>
-        {/* 导航栏 */}
-        <div className="flex items-center justify-between">
-          <Link to="/" className="text-2xl font-bold text-primary">健康商城</Link>
-          <nav className="hidden md:flex space-x-8">
-            <Link to="/" className="hover:text-primary">首页</Link>
-            <Link to="/" className="hover:text-primary">分类</Link>
-            <Link to="/" className="hover:text-primary">关于我们</Link>
-            <Link to="/" className="hover:text-primary">联系我们</Link>
-          </nav>
-          <div className="flex items-center space-x-4">
-            <button className="hover:text-primary">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-              </svg>
-            </button>
-            <button 
-              onClick={() => navigate('/cart')}
-              className="relative hover:text-primary"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
-              </svg>
+    <header className="sticky top-0 z-50">
+      {/* 顶部状态栏区域 - 渐变背景 */}
+      <div className="bg-gradient-to-r from-primary-main1 to-primary-main2 px-4 pt-2 pb-3">
+        {/* 顶部导航栏 */}
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-1">
+            <ChevronLeft className="w-5 h-5 text-white" />
+            <span className="text-white text-secondary">中国联通</span>
+            <span className="text-white text-secondary">15:06</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-white text-nav-title font-medium">健康商城</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="relative">
+              <ShoppingCart className="w-6 h-6 text-white" />
               {cartCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-danger text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 bg-functional-error text-white text-small-label rounded-full min-w-[16px] h-4 flex items-center justify-center px-1">
                   {cartCount}
                 </span>
               )}
-            </button>
+            </div>
+            <MoreHorizontal className="w-6 h-6 text-white" />
           </div>
         </div>
+
+        {/* 搜索框 */}
+        <form onSubmit={handleSearch} className="relative">
+          <div className="flex items-center bg-white rounded-default px-3 py-2">
+            <Search className="w-5 h-5 text-text-tertiary mr-2 flex-shrink-0" />
+            <input
+              type="text"
+              placeholder="搜索药品、器械、保健品"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="flex-1 bg-transparent text-body text-text-primary placeholder:text-text-tertiary outline-none"
+            />
+            <button 
+              type="submit"
+              className="bg-primary-main1 text-white text-secondary px-4 py-1 rounded-default ml-2 flex-shrink-0"
+            >
+              搜索
+            </button>
+          </div>
+        </form>
       </div>
     </header>
   )

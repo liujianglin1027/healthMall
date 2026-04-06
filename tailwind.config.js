@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+import corpguardConfig from './src/components/corpguard-design-tokens/corpguard-design-tokens/tailwind.config.js';
+
 export default {
   content: [
     "./index.html",
@@ -6,20 +8,7 @@ export default {
   ],
   theme: {
     extend: {
-      colors: {
-        primary: '#FF6B00',
-        secondary: '#2196F3',
-        accent: '#FF9800',
-        danger: '#F44336',
-        success: '#4CAF50',
-        warning: '#FFC107',
-        info: '#00BCD4',
-        light: '#F5F5F5',
-        dark: '#212121',
-      },
-      fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-      },
+      ...corpguardConfig.theme.extend,
     },
   },
   plugins: [],

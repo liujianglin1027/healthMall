@@ -1,44 +1,48 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
+import { Home, Shield, Heart, User } from 'lucide-react'
 
 const Footer = () => {
+  const location = useLocation()
+  const currentPath = location.pathname
+
+  const navItems = [
+    { id: 1, name: '首页', icon: Home, path: '/home' },
+    { id: 2, name: '保险', icon: Shield, path: '/insurance' },
+    { id: 3, name: '健康商城', icon: Heart, path: '/' },
+    { id: 4, name: '我的', icon: User, path: '/profile' },
+  ]
+
+  // 判断当前是否在首页（健康商城）
+  const isActive = (path: string) => {
+    if (path === '/' && currentPath === '/') return true
+    if (path !== '/' && currentPath.startsWith(path)) return true
+    return false
+  }
+
   return (
-    <footer className="bg-dark text-white py-8 mt-12">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div>
-            <h3 className="text-xl font-bold mb-4">健康商城</h3>
-            <p className="text-gray-400">专注于提供高品质健康产品，为您的健康保驾护航。</p>
-          </div>
-          <div>
-            <h4 className="font-bold mb-4">快速链接</h4>
-            <ul className="space-y-2">
-              <li><Link to="/" className="text-gray-400 hover:text-white">首页</Link></li>
-              <li><Link to="/" className="text-gray-400 hover:text-white">分类</Link></li>
-              <li><Link to="/" className="text-gray-400 hover:text-white">关于我们</Link></li>
-              <li><Link to="/" className="text-gray-400 hover:text-white">联系我们</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-bold mb-4">客户服务</h4>
-            <ul className="space-y-2">
-              <li><Link to="/" className="text-gray-400 hover:text-white">常见问题</Link></li>
-              <li><Link to="/" className="text-gray-400 hover:text-white">退换货政策</Link></li>
-              <li><Link to="/" className="text-gray-400 hover:text-white">配送信息</Link></li>
-              <li><Link to="/" className="text-gray-400 hover:text-white">隐私政策</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-bold mb-4">联系我们</h4>
-            <ul className="space-y-2">
-              <li className="text-gray-400">电话: 400-123-4567</li>
-              <li className="text-gray-400">邮箱: info@healthmall.com</li>
-              <li className="text-gray-400">地址: 北京市朝阳区健康路123号</li>
-            </ul>
-          </div>
-        </div>
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-          <p>© 2024 健康商城. 保留所有权利.</p>
-        </div>
+    <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-background-border z-50">
+      <div className="flex items-center justify-around py-2 pb-safe">
+        {navItems.map((item) => {
+          const IconComponent = item.icon
+          const active = isActive(item.path)
+          return (
+            <Link 
+              key={item.id} 
+              to={item.path}
+              className="flex flex-col items-center py-1 px-4"
+            >
+              <IconComponent 
+                className={`w-6 h-6 ${active ? 'text-primary-main1' : 'text-text-tertiary'}`} 
+                fill={active ? 'currentColor' : 'none'}
+              />
+              <span 
+                className={`text-small-label mt-1 ${active ? 'text-primary-main1' : 'text-text-tertiary'}`}
+              >
+                {item.name}
+              </span>
+            </Link>
+          )
+        })}
       </div>
     </footer>
   )

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>启动健康商城</title>
+    <script>
+        // 尝试打开一个新窗口并启用设备模式
+        function openWithDeviceMode() {
+            // 注意：由于浏览器安全限制，这种方法可能无法在所有浏览器中工作
+            // 但我们可以尝试使用Chrome的命令行参数
+            window.location.href = 'http://localhost:5173';
+        }
+        
+        // 页面加载后执行
+        window.onload = function() {
+            openWithDeviceMode();
+        };
+    </script>
+</head>
+<body>
+    <div style="display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column;">
+        <h1>正在启动健康商城...</h1>
+        <p>如果页面没有自动跳转，请点击下面的链接</p>
+        <a href="http://localhost:5173" style="margin-top: 20px; padding: 10px 20px; background-color: #FF5818; color: white; text-decoration: none; border-radius: 8px;">打开健康商城</a>
+    </div>
+</body>
+</html>

@@ -35,10 +35,6 @@ const Payment = () => {
     }, 1500)
   }
 
-  const handlePaymentFailed = () => {
-    setPaymentStatus('failed')
-  }
-
   return (
     <div className="pt-40">
       <div className="bg-white rounded-lg shadow overflow-hidden">
